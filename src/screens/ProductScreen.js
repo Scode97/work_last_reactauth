@@ -20,6 +20,13 @@ export default function ProductScreen(props) {
   }, [dispatch]);
   // let newprod = products.find((x) =>x.id ===props.match.params.id )
 
+  ////NOWWWW...............................................
+  // useEffect(() => {
+  //   if (success) {
+  //     props.history.push(`/order/${order._id}`);
+  //     dispatch({ type: ORDER_CREATE_RESET });
+  //   }
+  // }, [dispatch, order, props.history, success]);
   // console.log(props.match.params.id);
 
   const URLid = parseInt(props.match.params.id);

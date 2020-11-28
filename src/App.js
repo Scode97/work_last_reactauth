@@ -5,7 +5,6 @@ import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LoginForm from "./components/LoginForm";
 import ProductScreen from "./screens/ProductScreen";
-// import LoginForm from "./components/LoginForm"
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,7 +13,7 @@ import "semantic-ui-css/semantic.min.css";
 import { connect } from "react-redux";
 
 import { logout } from "./actions/authActions";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
+import OrderScreen from "./screens/OrderScreen";
 
 function App({ userObj, logoutFunction }) {
   const cart = useSelector((state) => state.cart);
@@ -56,11 +55,11 @@ function App({ userObj, logoutFunction }) {
           </div>
         </header>
         <main>
-          <Route path="/placeorder" component={PlaceOrderScreen} />
           <Route path="/register" component={RegistrationForm} />
           <Route path="/signin" component={LoginForm} />
           <Route path="/cart/:id?" component={CartScreen}></Route>
           <Route path="/product/:id" component={ProductScreen}></Route>
+          <Route path="/order/:id" component={OrderScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">All right reserved</footer>

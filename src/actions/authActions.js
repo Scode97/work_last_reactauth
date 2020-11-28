@@ -1,4 +1,4 @@
-import {instance} from "./instance";
+import { instance } from "./instance";
 import { SET_USER } from "./actionTypes";
 import jwt_decode from "jwt-decode";
 
@@ -26,15 +26,14 @@ export const login = (userData) => {
   return async (dispatch) => {
     try {
       const response = await instance.post("/login", userData);
-      console.log("i am logging userdata", userData)
+      console.log("i am logging userdata", userData);
 
       // console.log(response.name);
-console.log("res", response)
+      console.log("res", response);
       const user = response.headers.token;
       console.log(user);
       dispatch(setCurrentUser(user));
-
-    
+      // localStorage.setItem("user", JSON.stringify(userData));
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +41,6 @@ console.log("res", response)
 };
 
 export const setCurrentUser = (token) => async (dispatch) => {
-  
   let decodedUser = null;
   if (token) {
     decodedUser = jwt_decode(token);
@@ -52,7 +50,6 @@ export const setCurrentUser = (token) => async (dispatch) => {
     type: SET_USER,
     payload: decodedUser,
   });
-  
 };
 
 export const setAuthToken = (token) => {

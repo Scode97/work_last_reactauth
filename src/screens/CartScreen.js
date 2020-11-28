@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart, removeFromCart } from "../actions/cartActions";
@@ -11,39 +11,45 @@ export default function CartScreen(props) {
     ? Number(props.location.search.split("=")[1])
     : 1;
 
-  // console.log("this is qty", qty);
-
   const cart = useSelector((state) => state.cart);
-  // const cartUpgrade = useSelector((state) => state.cartUpgrade);
 
-  console.log(cart.cartItemsUpgrade, "up");
-
-  let newone = cart.cartItemsUpgrade.map((item) => item);
-  console.log(newone);
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
-  // console.log(cart, "i am seeing");
+
   const secondsSinceEpoch = Math.round(Date.now() / 1000);
+  const { cartItems } = cart;
 
-  // const [orderItem, setOrderItem] = useState({});
+  const quan = cart.cartItems.map((quan) => ({
+    quantity: quan.data.quantity,
+    price: quan.data.itemPrice,
+    id: parseInt(quan.product),
+  }));
+  // console.log(quan, "this is d");
+  // console.log("this", quan);
+  // const price = cart.cartItems.map((p) => p.data.itemPrice);
+  // const id = cart.cartItems.map((p) => parseInt(p.product));
 
+  const dispatch = useDispatch();
+  // const placeOrderHandler = () => {
+  //   dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
+  // };
+  const price = cart.cartItems.reduce(
+    (a, c) => a + c.data.itemPrice * c.qty,
+    0
+  );
+  const list = {
+    items: quan,
+    date: secondsSinceEpoch,
+    totalPrice: price,
+  };
   const placeOrderHandler = () => {
-    dispatch(
-      createOrder({
-        items: [cart.cartItems],
-        date: secondsSinceEpoch,
-        totalPrice: cart.cartItems.reduce(
-          (a, c) => a + c.data.itemPrice * c.qty,
-          0
-        ),
-      })
-    );
-    // console.log("here orde now", cart.cartItemsUpgrade);
+    // console.log("one");
+    dispatch(createOrder(list));
+    // console.log(dispatch(createOrder(list)));
   };
 
-  const { cartItems } = cart;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -137,7 +143,7 @@ export default function CartScreen(props) {
               <button
                 type="button"
                 className="primary block"
-                onClick={placeOrderHandler()}
+                onClick={placeOrderHandler}
                 disabled={cartItems.length === 0}
               >
                 Place Order

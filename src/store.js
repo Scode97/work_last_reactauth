@@ -4,7 +4,10 @@ import { cartReducer } from "./reducers/cartReducer";
 import { productListReducer } from "./reducers/productReducers";
 import { checkExpiredToken } from "./actions/authActions";
 import authReducer from "./reducers/authReducer";
-import { orderCreateReducer } from "./reducers/orderReducers";
+import {
+  orderCreateReducer,
+  orderDetailsReducer,
+} from "./reducers/orderReducers";
 
 const initialState = {
   cart: {
@@ -20,6 +23,7 @@ const reducer = combineReducers({
   cart: cartReducer,
   rootAuth: authReducer,
   orderCreate: orderCreateReducer,
+  orderDetails: orderDetailsReducer,
 
   //   productDetails: productDetailsReducer
 });

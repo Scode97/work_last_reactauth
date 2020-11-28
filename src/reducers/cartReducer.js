@@ -1,7 +1,7 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 export const cartReducer = (
-  state = { cartItems: [], cartItems2: "ji" },
+  state = { cartItems: [], cartItemsUpgrade: {} },
   action
 ) => {
   switch (action.type) {
@@ -14,15 +14,11 @@ export const cartReducer = (
           cartItems: state.cartItems.map((x) =>
             x.product === existItem.product ? item : x
           ),
-          cartItemsUpgrade: state.cartItems.map((x) =>
-            x.product === existItem.product ? item : x
-          ),
         };
       } else {
         return {
           ...state,
           cartItems: [...state.cartItems, item],
-          cartItemsUpgrade: [...state.cartItemsUpgrage, item],
         };
       }
     case CART_REMOVE_ITEM:

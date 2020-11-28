@@ -10,7 +10,8 @@ export const listProducts = () => async (dispatch) => {
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-  const { data } = await Axios.get("http://localhost:8017/order/items");
+    const { data } = await Axios.get("http://localhost:8017/order/items");
+
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
